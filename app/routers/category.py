@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from app.backend.db_depends import get_db
 from typing import Annotated
 from sqlalchemy import select, update
-from app.models import *
+from app.models import Category
 from sqlalchemy import insert
 from app.schemas.schemas import CreateCategory
 
@@ -35,7 +35,7 @@ async def create_category(db: Annotated[Session, Depends(get_db)], create_catego
 @router.put('/update_category')
 async def update_category(db: Annotated[Session, Depends(get_db)], category_id: int, update_category: CreateCategory):
     category = db.scalar(select(Category).where(Category.id == category_id))
-    if category is None:
+    if not category:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail='There is no category found'
