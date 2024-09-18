@@ -6,6 +6,7 @@
 fastapi==0.112.1
 jinja2==3.1.4
 SQLAlchemy==2.0.35
+PostgreSQL
 alembic==1.13.2
 
 
@@ -14,6 +15,70 @@ alembic==1.13.2
 `
 uvicorn app.main:app --port 8000 --reload
 `
+# Работа с базой данных
+
+Документация по подключению БД через SQLAlchemy
+
+https://docs.sqlalchemy.org/en/20/core/engines.html#backend-specific-urls
+
+## Создание пользователя для PostgreSQL на linux
+
+### Шаг 1: Установка PostgreSQL (если еще не установлено)
+`Данная инструкция не предусмотрена текущей документацией`
+
+## Шаг 2: Вход в систему PostgreSQL
+
+1. **Переключитесь на пользователя `postgres`:**
+   PostgreSQL устанавливает специального пользователя с именем `postgres`, который имеет право управлять БД.
+
+```bash
+sudo -i -u postgres
+````
+
+2. **Запустите консоль psql:**
+
+```bash
+psql
+````
+## Шаг 3: Создание пользователя
+
+Для создания нового пользователя выполните следующую команду в консоли `psql`:
+
+`
+CREATE USER имя_пользователя WITH PASSWORD 'ваш_пароль';
+`
+#### Пример:
+```sql
+CREATE USER ecommerce WITH PASSWORD 'secure_password';
+```
+#### Ожидаемый результат:
+
+`CREATE ROLE`
+
+### Шаг 4: Создание БД и передача прав созданному пользователю
+
+Для создания БД выполните следующую команду в консоли `psql`:
+
+`
+CREATE DATABASE имя_БД OWNER имя_пользователя ENCODING 'UTF8';
+`
+#### Пример:
+```sql
+CREATE DATABASE ecommerce OWNER ecommerce ENCODING 'UTF8';
+```
+#### Ожидаемый результат:
+
+`CREATE DATABASE`
+
+### Заключение
+
+`Вы успешно создали нового пользователя и базу данных в PostgreSQL на Linux`
+
+`Для выхода из консоли PostgreSQL используйте команду:`
+
+```bash
+\q
+````
 
 ## Создание миграций
 
