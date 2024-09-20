@@ -1,7 +1,6 @@
-from pydantic import BaseModel
+from pydantic import BaseModel as V2BaseModel
 
-
-class CreateProduct(BaseModel):
+class CreateProduct(V2BaseModel):
     name: str
     description: str
     price: int
@@ -9,7 +8,13 @@ class CreateProduct(BaseModel):
     stock: int
     category: int
 
-
-class CreateCategory(BaseModel):
+class CreateCategory(V2BaseModel):
     name: str
     parent_id: int | None
+
+class CreateUser(V2BaseModel):
+    first_name: str
+    last_name: str
+    username: str
+    email: str
+    password: str
